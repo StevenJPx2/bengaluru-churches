@@ -1,0 +1,8 @@
+name = "bengaluru-churches"
+compatibility_date = "2025-01-05"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "bengaluru-churches-db"
+database_id = "fb800d72-b79f-4945-a9c7-5eefd3bcf25b"

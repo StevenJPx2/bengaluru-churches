@@ -1,27 +1,33 @@
 <script setup lang="ts">
-import { churches } from '~/data/churches'
 import type { Church } from '~/data/churches'
 
-// State
+const [
+  { data: churches, status },
+  { data: denominations },
+  { data: areas }
+] = await Promise.all([
+  useFetch<Church[]>('/api/churches'),
+  useFetch<string[]>('/api/denominations'),
+  useFetch<string[]>('/api/areas')
+])
+
 const searchQuery = ref('')
 const selectedDenomination = ref('All')
 const selectedArea = ref('All')
 const selectedChurchId = ref<number | null>(null)
 
-// Computed
 const filteredChurches = computed(() => {
-  return churches.filter((church) => {
-    // Search filter
+  if (!churches.value) return []
+
+  return churches.value.filter((church) => {
     const matchesSearch
       = church.name.toLowerCase().includes(searchQuery.value.toLowerCase())
         || church.address.toLowerCase().includes(searchQuery.value.toLowerCase())
 
-    // Denomination filter
     const matchesDenomination
       = selectedDenomination.value === 'All'
         || church.denomination === selectedDenomination.value
 
-    // Area filter
     const matchesArea
       = selectedArea.value === 'All' || church.area === selectedArea.value
 
@@ -30,11 +36,11 @@ const filteredChurches = computed(() => {
 })
 
 const selectedChurch = computed(() => {
-  return churches.find(c => c.id === selectedChurchId.value) || null
+  if (!churches.value) return null
+  return churches.value.find(c => c.id === selectedChurchId.value) || null
 })
 
-// Handlers
-const handleSelectChurch = (church: Church) => {
+function handleSelectChurch(church: Church) {
   selectedChurchId.value = church.id
 }
 </script>
@@ -45,9 +51,21 @@ const handleSelectChurch = (church: Church) => {
   >
     <!-- Sidebar -->
     <div class="w-full md:w-1/3 h-1/2 md:h-full shrink-0 z-10 relative">
+      <div
+        v-if="status === 'pending'"
+        class="flex items-center justify-center h-full"
+      >
+        <UIcon
+          name="i-lucide-loader-2"
+          class="w-8 h-8 animate-spin text-primary-500"
+        />
+      </div>
       <ChurchSidebar
+        v-else
         :churches="filteredChurches"
         :selected-church-id="selectedChurchId"
+        :denominations="denominations || []"
+        :areas="areas || []"
         @select="handleSelectChurch"
         @update:search="searchQuery = $event"
         @update:denomination="selectedDenomination = $event"

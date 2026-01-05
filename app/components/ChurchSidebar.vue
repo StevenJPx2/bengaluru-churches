@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { Church } from '~/data/churches'
-import { denominations, areas } from '~/data/churches'
 
 defineProps<{
   churches: Church[]
   selectedChurchId?: number | null
+  denominations: string[]
+  areas: string[]
 }>()
 
 const emit = defineEmits<{

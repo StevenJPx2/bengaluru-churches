@@ -12,6 +12,21 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-01-15',
 
+  nitro: {
+    preset: 'cloudflare-pages',
+    experimental: {
+      database: true
+    },
+    database: {
+      default: {
+        connector: 'cloudflare-d1',
+        options: {
+          bindingName: 'DB'
+        }
+      }
+    }
+  },
+
   eslint: {
     config: {
       stylistic: {

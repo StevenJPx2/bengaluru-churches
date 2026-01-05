@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Church } from '~/data/churches'
+import type { Church } from '~~/shared/types/church'
 
 interface MapLibreMap {
   flyTo(options: {

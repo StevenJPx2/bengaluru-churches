@@ -5,8 +5,8 @@ export interface Church {
   address: string
   area: string
   coordinates: [number, number]
-  established?: number | null
-  services?: string[]
-  phone?: string | null
-  website?: string | null
+  established: number | null
+  services: string[] | null
+  phone: string | null
+  website: string | null
 }

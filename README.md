@@ -1,60 +1,77 @@
-# Nuxt Starter Template
+# Bengaluru Churches
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+An interactive map application displaying churches in Bengaluru with filtering capabilities.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+**Live:** https://bengaluru-churches.pages.dev
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+## Tech Stack
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-  </picture>
-</a>
-
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
-
-## Quick Start
-
-```bash [Terminal]
-npm create nuxt@latest -- -t github:nuxt-ui-templates/starter
-```
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
+- **Frontend:** Nuxt 4, Nuxt UI v4, nuxt-maplibre
+- **Backend:** Nitro with Drizzle ORM, db0
+- **Database:** Cloudflare D1 (SQLite)
+- **Deployment:** Cloudflare Pages via GitHub Actions
 
 ## Setup
 
-Make sure to install the dependencies:
-
 ```bash
-pnpm install
+bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+## Development
 
 ```bash
-pnpm dev
+bun run dev
+```
+
+## Database
+
+### Generate migrations
+
+```bash
+bun run db:generate
+```
+
+### Apply migrations to remote D1
+
+```bash
+CLOUDFLARE_ACCOUNT_ID=<account-id> npx wrangler d1 execute bengaluru-churches-db --remote --file=server/database/migrations/<migration>.sql
+```
+
+### Seed data
+
+```bash
+CLOUDFLARE_ACCOUNT_ID=<account-id> npx wrangler d1 execute bengaluru-churches-db --remote --file=server/database/seed.sql
 ```
 
 ## Production
 
-Build the application for production:
+Build:
 
 ```bash
-pnpm build
+bun run build
 ```
 
-Locally preview production build:
+Deploy manually:
 
 ```bash
-pnpm preview
+CLOUDFLARE_ACCOUNT_ID=<account-id> npx wrangler pages deploy dist --project-name=bengaluru-churches
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Project Structure
+
+```
+├── app/
+│   ├── pages/index.vue           # Main page with sidebar + map
+│   └── components/
+│       ├── ChurchSidebar.vue     # Filters & church list
+│       └── ChurchMap.vue         # MapLibre map with markers
+├── server/
+│   ├── api/                      # API endpoints
+│   ├── database/
+│   │   ├── schema.ts             # Drizzle schema (SSOT)
+│   │   ├── migrations/           # SQL migrations
+│   │   └── seed.sql              # Seed data
+│   └── utils/db.ts               # useDrizzle() helper
+├── shared/types/church.ts        # Frontend types from Drizzle schema
+└── wrangler.toml                 # D1 binding config
+```

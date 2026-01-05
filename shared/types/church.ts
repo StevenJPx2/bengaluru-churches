@@ -1,12 +1,6 @@
-export interface Church {
-  id: number
-  name: string
-  denomination: string
-  address: string
-  area: string
+import type { Church as DbChurch } from '~~/server/database/schema'
+
+export type Church = Omit<DbChurch, 'longitude' | 'latitude'> & {
   coordinates: [number, number]
-  established: number | null
   services: string[] | null
-  phone: string | null
-  website: string | null
 }

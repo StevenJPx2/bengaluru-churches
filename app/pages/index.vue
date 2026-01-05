@@ -1,42 +1,42 @@
 <script setup lang="ts">
-import { churches } from "~/data/churches";
-import type { Church } from "~/data/churches";
+import { churches } from '~/data/churches'
+import type { Church } from '~/data/churches'
 
 // State
-const searchQuery = ref("");
-const selectedDenomination = ref("All");
-const selectedArea = ref("All");
-const selectedChurchId = ref<number | null>(null);
+const searchQuery = ref('')
+const selectedDenomination = ref('All')
+const selectedArea = ref('All')
+const selectedChurchId = ref<number | null>(null)
 
 // Computed
 const filteredChurches = computed(() => {
   return churches.filter((church) => {
     // Search filter
-    const matchesSearch =
-      church.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      church.address.toLowerCase().includes(searchQuery.value.toLowerCase());
+    const matchesSearch
+      = church.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+        || church.address.toLowerCase().includes(searchQuery.value.toLowerCase())
 
     // Denomination filter
-    const matchesDenomination =
-      selectedDenomination.value === "All" ||
-      church.denomination === selectedDenomination.value;
+    const matchesDenomination
+      = selectedDenomination.value === 'All'
+        || church.denomination === selectedDenomination.value
 
     // Area filter
-    const matchesArea =
-      selectedArea.value === "All" || church.area === selectedArea.value;
+    const matchesArea
+      = selectedArea.value === 'All' || church.area === selectedArea.value
 
-    return matchesSearch && matchesDenomination && matchesArea;
-  });
-});
+    return matchesSearch && matchesDenomination && matchesArea
+  })
+})
 
 const selectedChurch = computed(() => {
-  return churches.find((c) => c.id === selectedChurchId.value) || null;
-});
+  return churches.find(c => c.id === selectedChurchId.value) || null
+})
 
 // Handlers
 const handleSelectChurch = (church: Church) => {
-  selectedChurchId.value = church.id;
-};
+  selectedChurchId.value = church.id
+}
 </script>
 
 <template>
@@ -67,7 +67,9 @@ const handleSelectChurch = (church: Church) => {
           <div
             class="w-full h-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-800"
           >
-            <div class="text-neutral-500">Loading map...</div>
+            <div class="text-neutral-500">
+              Loading map...
+            </div>
           </div>
         </template>
       </ClientOnly>

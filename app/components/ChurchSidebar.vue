@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import type { Church } from "~/data/churches";
-import { denominations, areas } from "~/data/churches";
+import type { Church } from '~/data/churches'
+import { denominations, areas } from '~/data/churches'
 
-const props = defineProps<{
-  churches: Church[];
-  selectedChurchId?: number | null;
-}>();
+defineProps<{
+  churches: Church[]
+  selectedChurchId?: number | null
+}>()
 
 const emit = defineEmits<{
-  (e: "select", church: Church): void;
-  (e: "update:search", value: string): void;
-  (e: "update:denomination", value: string): void;
-  (e: "update:area", value: string): void;
-}>();
+  'select': [church: Church]
+  'update:search': [value: string]
+  'update:denomination': [value: string]
+  'update:area': [value: string]
+}>()
 
-const searchQuery = ref("");
-const selectedDenomination = ref("All");
-const selectedArea = ref("All");
+const searchQuery = ref('')
+const selectedDenomination = ref('All')
+const selectedArea = ref('All')
 
 // Watchers to emit updates
-watch(searchQuery, (val) => emit("update:search", val));
-watch(selectedDenomination, (val) => emit("update:denomination", val));
-watch(selectedArea, (val) => emit("update:area", val));
+watch(searchQuery, val => emit('update:search', val))
+watch(selectedDenomination, val => emit('update:denomination', val))
+watch(selectedArea, val => emit('update:area', val))
 
 const formatService = (service: string) => {
-  return service.replace("Sunday ", "");
-};
+  return service.replace('Sunday ', '')
+}
 </script>
 
 <template>
@@ -115,7 +115,7 @@ const formatService = (service: string) => {
           'cursor-pointer transition-all duration-200 border-l-4',
           selectedChurchId === church.id
             ? 'border-l-primary-500 ring-2 ring-primary-500/20'
-            : 'border-l-transparent hover:border-l-neutral-300 dark:hover:border-l-neutral-700',
+            : 'border-l-transparent hover:border-l-neutral-300 dark:hover:border-l-neutral-700'
         ]"
         @click="emit('select', church)"
       >
@@ -123,15 +123,24 @@ const formatService = (service: string) => {
           <h3 class="font-semibold text-neutral-900 dark:text-white">
             {{ church.name }}
           </h3>
-          <UBadge size="sm" variant="subtle" color="neutral">{{
-            church.denomination
-          }}</UBadge>
+          <UBadge
+            size="sm"
+            variant="subtle"
+            color="neutral"
+          >
+            {{
+              church.denomination
+            }}
+          </UBadge>
         </div>
 
         <p
           class="text-sm text-neutral-500 dark:text-neutral-400 mb-2 flex items-center gap-1"
         >
-          <UIcon name="i-lucide-map-pin" class="w-3 h-3" />
+          <UIcon
+            name="i-lucide-map-pin"
+            class="w-3 h-3"
+          />
           {{ church.area }}
         </p>
 

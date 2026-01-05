@@ -1,31 +1,30 @@
 <script setup lang="ts">
-import type { Church } from "~/data/churches";
+import type { Church } from '~/data/churches'
 
 interface MapLibreMap {
   flyTo(options: {
-    center: [number, number];
-    zoom: number;
-    essential?: boolean;
-  }): void;
+    center: [number, number]
+    zoom: number
+    essential?: boolean
+  }): void
 }
 
 const props = defineProps<{
-  churches: Church[];
-  selectedChurch?: Church | null;
-}>();
+  churches: Church[]
+  selectedChurch?: Church | null
+}>()
 
 const emit = defineEmits<{
-  (e: "select", church: Church): void;
-}>();
+  (e: 'select', church: Church): void
+}>()
 
-const mapRef = shallowRef<MapLibreMap | null>(null);
-const center = ref([77.5946, 12.9716] as [number, number]);
-const zoom = ref(12);
+const mapRef = shallowRef<MapLibreMap | null>(null)
+const center = ref([77.5946, 12.9716] as [number, number])
+const zoom = ref(12)
 
-const onMapLoad = (event: any) => {
-  // nuxt-maplibre might pass the map instance in the event
-  mapRef.value = event.map;
-};
+function onMapLoad(event: { map: MapLibreMap }) {
+  mapRef.value = event.map
+}
 
 // Watch for selected church changes to fly to it
 watch(
@@ -35,16 +34,16 @@ watch(
       mapRef.value.flyTo({
         center: church.coordinates,
         zoom: 15,
-        essential: true,
-      });
+        essential: true
+      })
     }
-  },
-);
+  }
+)
 
 // Handle marker click
 const onMarkerClick = (church: Church) => {
-  emit("select", church);
-};
+  emit('select', church)
+}
 </script>
 
 <template>
@@ -93,12 +92,16 @@ const onMarkerClick = (church: Church) => {
       >
         <div class="p-2 min-w-[200px]">
           <div class="flex justify-between items-start">
-            <h3 class="font-bold text-sm">{{ selectedChurch.name }}</h3>
+            <h3 class="font-bold text-sm">
+              {{ selectedChurch.name }}
+            </h3>
           </div>
           <p class="text-xs text-gray-500 mb-2">
             {{ selectedChurch.denomination }}
           </p>
-          <p class="text-xs">{{ selectedChurch.address }}</p>
+          <p class="text-xs">
+            {{ selectedChurch.address }}
+          </p>
           <div class="mt-2 text-xs text-primary-600 font-medium">
             Est. {{ selectedChurch.established }}
           </div>

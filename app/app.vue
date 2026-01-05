@@ -1,15 +1,15 @@
 <script setup lang="ts">
 useHead({
-  title: "Bengaluru Churches",
+  title: 'Bengaluru Churches',
   meta: [
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "description", content: "Explore historic churches in Bengaluru" },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'description', content: 'Explore historic churches in Bengaluru' }
   ],
-  link: [{ rel: "icon", href: "/favicon.ico" }],
+  link: [{ rel: 'icon', href: '/favicon.ico' }],
   htmlAttrs: {
-    lang: "en",
-  },
-});
+    lang: 'en'
+  }
+})
 </script>
 
 <template>

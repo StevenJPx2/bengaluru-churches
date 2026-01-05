@@ -1,0 +1,240 @@
+export interface Church {
+  id: number
+  name: string
+  denomination: string
+  address: string
+  area: string
+  coordinates: [number, number] // [longitude, latitude]
+  established?: number
+  services?: string[]
+  phone?: string
+  website?: string
+}
+
+export const churches: Church[] = [
+  {
+    id: 1,
+    name: 'St. Mary\'s Basilica',
+    denomination: 'Catholic',
+    address: 'Shivajinagar, Bengaluru',
+    area: 'Shivajinagar',
+    coordinates: [77.6033, 12.9850],
+    established: 1882,
+    services: ['Sunday 6:00 AM', 'Sunday 8:00 AM', 'Sunday 10:00 AM'],
+    phone: '+91 80 2559 2237'
+  },
+  {
+    id: 2,
+    name: 'St. Patrick\'s Church',
+    denomination: 'Catholic',
+    address: 'Brigade Road, Bengaluru',
+    area: 'Brigade Road',
+    coordinates: [77.6065, 12.9716],
+    established: 1844,
+    services: ['Sunday 7:00 AM', 'Sunday 9:00 AM', 'Sunday 11:00 AM']
+  },
+  {
+    id: 3,
+    name: 'Holy Trinity Church',
+    denomination: 'Anglican',
+    address: 'MG Road, Bengaluru',
+    area: 'MG Road',
+    coordinates: [77.6069, 12.9758],
+    established: 1851,
+    services: ['Sunday 8:00 AM', 'Sunday 10:30 AM']
+  },
+  {
+    id: 4,
+    name: 'St. Andrew\'s Church',
+    denomination: 'Church of South India',
+    address: 'Cubbon Road, Bengaluru',
+    area: 'Cubbon Park',
+    coordinates: [77.5936, 12.9780],
+    established: 1866,
+    services: ['Sunday 8:00 AM', 'Sunday 10:00 AM']
+  },
+  {
+    id: 5,
+    name: 'St. Mark\'s Cathedral',
+    denomination: 'Anglican',
+    address: 'MG Road, Bengaluru',
+    area: 'MG Road',
+    coordinates: [77.5978, 12.9734],
+    established: 1808,
+    services: ['Sunday 7:30 AM', 'Sunday 9:30 AM', 'Sunday 6:00 PM']
+  },
+  {
+    id: 6,
+    name: 'Bethel AG Church',
+    denomination: 'Pentecostal',
+    address: 'Indiranagar, Bengaluru',
+    area: 'Indiranagar',
+    coordinates: [77.6408, 12.9784],
+    services: ['Sunday 9:00 AM', 'Sunday 11:00 AM']
+  },
+  {
+    id: 7,
+    name: 'Word of Faith Church',
+    denomination: 'Evangelical',
+    address: 'Koramangala, Bengaluru',
+    area: 'Koramangala',
+    coordinates: [77.6245, 12.9352],
+    services: ['Sunday 10:00 AM', 'Sunday 5:00 PM']
+  },
+  {
+    id: 8,
+    name: 'St. Joseph\'s Church',
+    denomination: 'Catholic',
+    address: 'Museum Road, Bengaluru',
+    area: 'Museum Road',
+    coordinates: [77.5967, 12.9712],
+    established: 1851,
+    services: ['Sunday 6:30 AM', 'Sunday 8:30 AM', 'Sunday 10:30 AM']
+  },
+  {
+    id: 9,
+    name: 'Bethesda Assembly',
+    denomination: 'Brethren',
+    address: 'Richmond Town, Bengaluru',
+    area: 'Richmond Town',
+    coordinates: [77.5959, 12.9632],
+    services: ['Sunday 9:00 AM', 'Sunday 6:00 PM']
+  },
+  {
+    id: 10,
+    name: 'Calvary Temple',
+    denomination: 'Pentecostal',
+    address: 'Lingarajapuram, Bengaluru',
+    area: 'Lingarajapuram',
+    coordinates: [77.6125, 13.0167],
+    services: ['Sunday 8:00 AM', 'Sunday 10:30 AM', 'Sunday 6:30 PM']
+  },
+  {
+    id: 11,
+    name: 'Our Lady of Lourdes Church',
+    denomination: 'Catholic',
+    address: 'Whitefield, Bengaluru',
+    area: 'Whitefield',
+    coordinates: [77.7506, 12.9698],
+    established: 1882,
+    services: ['Sunday 7:00 AM', 'Sunday 9:00 AM', 'Sunday 11:00 AM']
+  },
+  {
+    id: 12,
+    name: 'Christ Church',
+    denomination: 'Church of South India',
+    address: 'Frazer Town, Bengaluru',
+    area: 'Frazer Town',
+    coordinates: [77.6167, 13.0042],
+    established: 1869,
+    services: ['Sunday 8:30 AM', 'Sunday 10:30 AM']
+  },
+  {
+    id: 13,
+    name: 'Good Shepherd Church',
+    denomination: 'Catholic',
+    address: 'Museum Road, Bengaluru',
+    area: 'Museum Road',
+    coordinates: [77.5989, 12.9689],
+    services: ['Sunday 7:00 AM', 'Sunday 9:30 AM']
+  },
+  {
+    id: 14,
+    name: 'St. Francis Xavier Cathedral',
+    denomination: 'Catholic',
+    address: 'Cleveland Town, Bengaluru',
+    area: 'Cleveland Town',
+    coordinates: [77.6021, 12.9612],
+    established: 1851,
+    services: ['Sunday 6:00 AM', 'Sunday 8:00 AM', 'Sunday 10:00 AM', 'Sunday 6:00 PM']
+  },
+  {
+    id: 15,
+    name: 'Hebron Church',
+    denomination: 'Pentecostal',
+    address: 'HSR Layout, Bengaluru',
+    area: 'HSR Layout',
+    coordinates: [77.6389, 12.9116],
+    services: ['Sunday 9:30 AM', 'Sunday 6:00 PM']
+  },
+  {
+    id: 16,
+    name: 'New Life AG Church',
+    denomination: 'Pentecostal',
+    address: 'Jayanagar, Bengaluru',
+    area: 'Jayanagar',
+    coordinates: [77.5820, 12.9308],
+    services: ['Sunday 9:00 AM', 'Sunday 11:00 AM']
+  },
+  {
+    id: 17,
+    name: 'Immanuel Church',
+    denomination: 'Lutheran',
+    address: 'Ulsoor, Bengaluru',
+    area: 'Ulsoor',
+    coordinates: [77.6200, 12.9833],
+    established: 1879,
+    services: ['Sunday 8:00 AM', 'Sunday 10:00 AM']
+  },
+  {
+    id: 18,
+    name: 'Grace Tabernacle',
+    denomination: 'Evangelical',
+    address: 'Malleswaram, Bengaluru',
+    area: 'Malleswaram',
+    coordinates: [77.5678, 13.0067],
+    services: ['Sunday 9:30 AM', 'Sunday 6:30 PM']
+  },
+  {
+    id: 19,
+    name: 'St. Germain Church',
+    denomination: 'Catholic',
+    address: 'Rajajinagar, Bengaluru',
+    area: 'Rajajinagar',
+    coordinates: [77.5525, 12.9908],
+    services: ['Sunday 7:00 AM', 'Sunday 9:00 AM', 'Sunday 11:00 AM']
+  },
+  {
+    id: 20,
+    name: 'Bethel Marthoma Church',
+    denomination: 'Marthoma',
+    address: 'JP Nagar, Bengaluru',
+    area: 'JP Nagar',
+    coordinates: [77.5912, 12.9081],
+    services: ['Sunday 8:30 AM', 'Sunday 10:30 AM']
+  }
+]
+
+export const denominations = [
+  'All',
+  'Catholic',
+  'Anglican',
+  'Church of South India',
+  'Pentecostal',
+  'Evangelical',
+  'Brethren',
+  'Lutheran',
+  'Marthoma'
+]
+
+export const areas = [
+  'All',
+  'Brigade Road',
+  'Cleveland Town',
+  'Cubbon Park',
+  'Frazer Town',
+  'HSR Layout',
+  'Indiranagar',
+  'Jayanagar',
+  'JP Nagar',
+  'Koramangala',
+  'Lingarajapuram',
+  'Malleswaram',
+  'MG Road',
+  'Museum Road',
+  'Rajajinagar',
+  'Richmond Town',
+  'Shivajinagar',
+  'Ulsoor',
+  'Whitefield'
+]

@@ -1,43 +1,50 @@
 <script setup lang="ts">
-import type { Church } from '~/data/churches'
+import type { Church } from "~/data/churches";
 
 interface MapLibreMap {
-  flyTo(options: { center: [number, number]; zoom: number; essential?: boolean }): void
+  flyTo(options: {
+    center: [number, number];
+    zoom: number;
+    essential?: boolean;
+  }): void;
 }
 
 const props = defineProps<{
-  churches: Church[]
-  selectedChurch?: Church | null
-}>()
+  churches: Church[];
+  selectedChurch?: Church | null;
+}>();
 
 const emit = defineEmits<{
-  (e: 'select', church: Church): void
-}>()
+  (e: "select", church: Church): void;
+}>();
 
-const mapRef = shallowRef<MapLibreMap | null>(null)
-const center = ref([77.5946, 12.9716] as [number, number])
-const zoom = ref(12)
+const mapRef = shallowRef<MapLibreMap | null>(null);
+const center = ref([77.5946, 12.9716] as [number, number]);
+const zoom = ref(12);
 
 const onMapLoad = (event: any) => {
   // nuxt-maplibre might pass the map instance in the event
-  mapRef.value = event.map
-}
+  mapRef.value = event.map;
+};
 
 // Watch for selected church changes to fly to it
-watch(() => props.selectedChurch, (church) => {
-  if (church && mapRef.value) {
-    mapRef.value.flyTo({
-      center: church.coordinates,
-      zoom: 15,
-      essential: true
-    })
-  }
-})
+watch(
+  () => props.selectedChurch,
+  (church) => {
+    if (church && mapRef.value) {
+      mapRef.value.flyTo({
+        center: church.coordinates,
+        zoom: 15,
+        essential: true,
+      });
+    }
+  },
+);
 
 // Handle marker click
 const onMarkerClick = (church: Church) => {
-  emit('select', church)
-}
+  emit("select", church);
+};
 </script>
 
 <template>
@@ -60,11 +67,17 @@ const onMarkerClick = (church: Church) => {
         @click="onMarkerClick(church)"
       >
         <template #element>
-          <div class="relative group-hover:scale-110 transition-transform duration-200">
-            <UIcon 
-              name="i-lucide-map-pin" 
+          <div
+            class="relative group-hover:scale-110 transition-transform duration-200"
+          >
+            <UIcon
+              name="i-lucide-map-pin"
               class="w-8 h-8 drop-shadow-md"
-              :class="selectedChurch?.id === church.id ? 'text-primary-400 scale-125' : 'text-primary-600'" 
+              :class="
+                selectedChurch?.id === church.id
+                  ? 'text-primary-400 scale-125'
+                  : 'text-primary-600'
+              "
             />
           </div>
         </template>
@@ -82,7 +95,9 @@ const onMarkerClick = (church: Church) => {
           <div class="flex justify-between items-start">
             <h3 class="font-bold text-sm">{{ selectedChurch.name }}</h3>
           </div>
-          <p class="text-xs text-gray-500 mb-2">{{ selectedChurch.denomination }}</p>
+          <p class="text-xs text-gray-500 mb-2">
+            {{ selectedChurch.denomination }}
+          </p>
           <p class="text-xs">{{ selectedChurch.address }}</p>
           <div class="mt-2 text-xs text-primary-600 font-medium">
             Est. {{ selectedChurch.established }}
@@ -99,7 +114,9 @@ const onMarkerClick = (church: Church) => {
   padding: 0;
   border-radius: 0.5rem;
   overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 .dark .maplibregl-popup-content {
   background-color: #171717;

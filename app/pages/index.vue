@@ -1,42 +1,48 @@
 <script setup lang="ts">
-import { churches } from '~/data/churches'
-import type { Church } from '~/data/churches'
+import { churches } from "~/data/churches";
+import type { Church } from "~/data/churches";
 
 // State
-const searchQuery = ref('')
-const selectedDenomination = ref('All')
-const selectedArea = ref('All')
-const selectedChurchId = ref<number | null>(null)
+const searchQuery = ref("");
+const selectedDenomination = ref("All");
+const selectedArea = ref("All");
+const selectedChurchId = ref<number | null>(null);
 
 // Computed
 const filteredChurches = computed(() => {
-  return churches.filter(church => {
+  return churches.filter((church) => {
     // Search filter
-    const matchesSearch = church.name.toLowerCase().includes(searchQuery.value.toLowerCase()) || 
-                          church.address.toLowerCase().includes(searchQuery.value.toLowerCase())
-    
-    // Denomination filter
-    const matchesDenomination = selectedDenomination.value === 'All' || church.denomination === selectedDenomination.value
-    
-    // Area filter
-    const matchesArea = selectedArea.value === 'All' || church.area === selectedArea.value
+    const matchesSearch =
+      church.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      church.address.toLowerCase().includes(searchQuery.value.toLowerCase());
 
-    return matchesSearch && matchesDenomination && matchesArea
-  })
-})
+    // Denomination filter
+    const matchesDenomination =
+      selectedDenomination.value === "All" ||
+      church.denomination === selectedDenomination.value;
+
+    // Area filter
+    const matchesArea =
+      selectedArea.value === "All" || church.area === selectedArea.value;
+
+    return matchesSearch && matchesDenomination && matchesArea;
+  });
+});
 
 const selectedChurch = computed(() => {
-  return churches.find(c => c.id === selectedChurchId.value) || null
-})
+  return churches.find((c) => c.id === selectedChurchId.value) || null;
+});
 
 // Handlers
 const handleSelectChurch = (church: Church) => {
-  selectedChurchId.value = church.id
-}
+  selectedChurchId.value = church.id;
+};
 </script>
 
 <template>
-  <div class="flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-white dark:bg-black">
+  <div
+    class="flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-white dark:bg-black"
+  >
     <!-- Sidebar -->
     <div class="w-full md:w-1/3 h-1/2 md:h-full shrink-0 z-10 relative">
       <ChurchSidebar
@@ -58,7 +64,9 @@ const handleSelectChurch = (church: Church) => {
           @select="handleSelectChurch"
         />
         <template #fallback>
-          <div class="w-full h-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-800">
+          <div
+            class="w-full h-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-800"
+          >
             <div class="text-neutral-500">Loading map...</div>
           </div>
         </template>

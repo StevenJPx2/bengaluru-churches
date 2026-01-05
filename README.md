@@ -4,6 +4,8 @@ An interactive map application displaying churches in Bengaluru with filtering c
 
 **Live:** https://bengaluru-churches.pages.dev
 
+![Screenshot](screenshot.png)
+
 ## Tech Stack
 
 - **Frontend:** Nuxt 4, Nuxt UI v4, nuxt-maplibre
